@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+<title>Gestion de Aspirantes || administrador agencia de empleo</title>
+</h:head>
+ <ui:include src="/vista/plantillas/head.xhtml" />
+<h:body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed" >
+	<div class="wrapper">
+      <!-- Preloader -->
+	      <div class="preloader flex-column justify-content-center align-items-center">
+	        <img class="animation__wobble" src="${facesContext.externalContext.requestContextPath}/vista/imagenes/logo_empleo.png" alt="Logo_tienda" height="60" width="60"/>
+	      </div>
+	      <ui:include src="/vista/plantillas/menu-vertical.xhtml" />
+	      <ui:include src="/vista/plantillas/menu-horizontal.xhtml" />
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6 col-lg-12">
+                <h1 class="m-0 text-center">Gestion de Agencias</h1>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group" id="mostrar_loading" style="display: none;"></div>
+                        <div class="form-group" id="mostrar_usuarios">
+                        	<div class="table-responsive">
+							<div class="row">
+							<div class="col-2 mb-3">
+									<button class="btn btn-outline-success" data-toggle="modal" data-target="#modal_agregar_agencias">Agregar Agencia</button>
+								</div>
+								<!-- <div class="col-6"></div>
+								<div class="col-4 mb-3">
+									<div class="btn-group col-md-12">
+                                    <input type="text" class="form-control" id="num_buscar_cli" placeholder="Buscar por numero de documento"/>
+                                    <button type="button" class="btn btn-secondary" onclick="buscarCliente()"><i class="fas fa-search"></i></button>
+                                  </div>
+								</div> -->
+							</div>
+							
+							<table id="tabla_clientes" class="table display table-striped table-bordered compact" style="width:100%">
+							        <thead class="text-capitalize ">
+							            <tr style="background: #3F6791; color: #fff;">
+							                <th class="text-center">NIT</th>
+							                <th class="text-center">NOMBRE</th>
+							                <th class="text-center">TELEFONO</th>
+							                <th class="text-center">DIRECCION</th>
+							                <th class="text-center">ACCIONES</th>
+							            </tr>
+							        </thead>
+							        <tbody>
+							            <tr>
+							                <td style="text-align: center;">1111111111111111111</td>
+							                <td style="text-align: center;">Exito colombia</td>
+							                <td style="text-align: center;">32199454332</td>
+							                <td style="text-align: center;">calle 69</td>
+							                <td style="text-align: center;"><div class="row" style="margin:auto;"><button class="btn btn-outline-success" id="" data-toggle="modal" data-target="#modal_editar_agencias"><i class="fas fa-edit"></i></button>
+								                <button class="btn btn-outline-danger" id="" > <i class="far fa-trash-alt"></i></button>
+							                </div></td>
+							            </tr>
+							         <tfoot>
+							                <tr style="background: #3F6791; color: #fff;">
+							                    <th class="text-center">NIT</th>
+							                <th class="text-center">NOMBRE</th>
+							                <th class="text-center">TELEFONO</th>
+							                <th class="text-center">DIRECCION</th>
+								                <th class="text-center">ACCIONES</th>
+							                </tr>
+							            </tfoot>
+							        </tbody>
+							    </table>
+							</div>
+                        </div>
+                        <!-- Modal ingresar agencia-->
+                        <div class="modal fade" id="modal_agregar_agencias" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content card card-outline card-primary">
+                              <div class="modal-body card-body">
+                                <div class="row card-header text-center">
+                                <div class="col-11">
+                                    <p class="h2"><span style="opacity:0;">ee</span>Ingresar Agencias</p>
+                                </div>
+                                <div class="col-1">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true" class="fas fa-times"></span>
+                                  </button>
+                                </div>
+                                </div>
+                                <p class="login-box-msg">Formulario de registro de agencias</p>
+                                <form method="POST" action="">
+	                                <div class="input-group mb-3">
+	                                    <input type="text" class="form-control" id="nit_agre_agen" name="nit_agre_agen" placeholder="NIT" value=""/>
+	                                    <div class="input-group-append">
+	                                      <div class="input-group-text">
+	                                        <span class="fas fa-address-card"></span>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+                                      <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="nom_agre_agen" name="nom_agre_agen" placeholder="Nombre completo" value=""/>
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-building"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="tel_edit_cli" name="tel_edit_cli" placeholder="Telefono" value=""/>
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-phone-alt"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="dir_agre_agen" name="dir_agre_agen" placeholder="Direccion" value=""/>
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-map-marked-alt"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-4 mb-0">
+                                      <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" >Cerrar</button>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-4 mb-0">
+                                      <input type="submit" class="btn btn-primary btn-block" name="accion" value="Registrar"/>
+                                    </div>
+                                    <!-- /.col -->
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- /.form-box -->
+                            </div>
+                            <!-- /.register-box -->
+                          </div>
+                        </div>
+                        <!-- Modal editar cliente-->
+                        <div class="modal fade" id="modal_editar_agencias" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content card card-outline card-primary">
+                              <div class="modal-body card-body">
+                                <div class="row card-header text-center">
+                                <div class="col-11">
+                                    <p class="h2"><span style="opacity:0;">ee</span>Editar Agencia</p>
+                                </div>
+                                <div class="col-1">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true" class="fas fa-times"></span>
+                                  </button>
+                                </div>
+                                </div>
+                                <p class="login-box-msg">Formulario de edicion de clientes</p>
+                                <form method="POST" action="">
+	                                 <div class="input-group mb-3">
+	                                    <input type="text" class="form-control" id="nit_agre_agen" name="nit_agre_agen" placeholder="NIT" value=""/>
+	                                    <div class="input-group-append">
+	                                      <div class="input-group-text">
+	                                        <span class="fas fa-address-card"></span>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+                                      <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="nom_agre_agen" name="nom_agre_agen" placeholder="Nombre completo" value=""/>
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-building"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="tel_edit_cli" name="tel_edit_cli" placeholder="Telefono" value=""/>
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-phone-alt"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="dir_agre_agen" name="dir_agre_agen" placeholder="Direccion" value=""/>
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-map-marked-alt"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-4 mb-0">
+                                      <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" >Cerrar</button>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-4 mb-0">
+                                      <input type="submit" class="btn btn-primary btn-block" name="accion" value="Actualizar"/>
+                                    </div>
+                                    <!-- /.col -->
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- /.form-box -->
+                            </div>
+                            <!-- /.register-box -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- ./card-body-->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+          </div>
+          <!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      </div>
+</h:body>
+<ui:include src="/vista/plantillas/footer.xhtml" />
+<ui:include src="/vista/plantillas/script.xhtml" />
+</html>
